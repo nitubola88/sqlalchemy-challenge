@@ -32,11 +32,11 @@ This project is part of the Bootcamp Module 10 Challenge, where I performed a cl
 
 ## Flask API Routes
 - **`/`**: Homepage with available routes.
-- **`/api/v1.0/precipitation`**: Precipitation data for the last 12 months.
+- **`/api/v1.0/precipitation`**: Get precipitation data
 - **`/api/v1.0/stations`**: List of all stations.
-- **`/api/v1.0/tobs`**: TOBS data for the most active station in the last year.
-- **`/api/v1.0/<start>`**: Min, avg, and max temperatures from a specified start date to the end.
-- **`/api/v1.0/<start>/<end>`**: Min, avg, and max temperatures for a specified date range.
+- **`/api/v1.0/tobs`**: Get temperature observations for the most active station.
+- **`/api/v1.0/<start>`**:Get min, avg, max temperatures from start date (YYYY-MM-DD).
+- **`/api/v1.0/<start>/<end>`**: Get min, avg, max temperatures between start and end dates (YYYY-MM-DD).
 
 ## Code Source
 The code source can be found here: [GitHub Repository](https://github.com/nitubola88/sqlalchemy-challenge.git)
