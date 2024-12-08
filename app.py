@@ -1,4 +1,4 @@
-# Import the dependencies.
+# Import the dependencies
 
 from sqlalchemy import create_engine, Date, MetaData
 from sqlalchemy.ext.automap import automap_base
@@ -62,27 +62,43 @@ def home():
 @app.route('/api/v1.0/precipitation')
 def precipitation():
      # Query precipitation data for the last 12 months
-    results = precipitation_data = Session.query(
+    results = Session.query(
     Measurement.date,
+    Measurement.station,
     Measurement.prcp
-).filter(
+    ).filter(
     Measurement.date >= func.date(Session.query(func.max(Measurement.date)).scalar(), '-1 year')  # Use max date - 1 year
-).all()
+    ).all()
+   
+    precipitation_data={}
      # Convert the results to a dictionary with date as key and prcp as value
-    precipitation_data = [
-        {"date": result.date, "prcp": result.prcp} for result in results
-    ]
+    # Loop through the results and organize the data by date
+    for date, station, prcp in results:
+        # If the date is not in the dictionary, add it with an empty list
+        if date not in precipitation_data:
+            precipitation_data[date] = []
+
+        # Append the precipitation data for each station on the given date
+        precipitation_data[date].append({
+            'station': station,
+            'precipitation': prcp
+        })
+
+
+
+
     return jsonify(precipitation_data)
+
 
 
 
 @app.route('/api/v1.0/stations')
 def stations():
     # Query all distinct stations 
-    results = Session.query(Station.station).distinct().all()
-   
-    # Prepare the data in a list of dictionaries
-    station_data = [{"station": result[0]} for result in results] # result is a tuple
+    results = Session.query(Station.station, Station.name).all()
+    
+    # Convert to a list of dictionaries
+    station_data = [{"station": station, "name": name} for station, name in results]
     
     # Return the JSONified data
     return jsonify(station_data)
