@@ -37,6 +37,8 @@ This project is part of the Bootcamp Module 10 Challenge, where I performed a cl
 - **`/api/v1.0/tobs`**: Get temperature observations for the most active station.
 - **`/api/v1.0/<start>`**:Get min, avg, max temperatures from start date (YYYY-MM-DD).
 - **`/api/v1.0/<start>/<end>`**: Get min, avg, max temperatures between start and end dates (YYYY-MM-DD).
-
+## Note
+In the first route there was a requirement to Convert the query results from your precipitation analysis (i.e. retrieve only the last 12 months of data) to a dictionary using date as the key and prcp as the value.
+Instead of using a simple dictionary where the key is the date and the value is the precipitation (which would overwrite the data for a given date), I use a dictionary (precipitation_data) where the key is the date, and the value is a list of dictionaries. Each dictionary in the list contains the station's code and its corresponding precipitation value for that day.
 ## Code Source
 The code source can be found here: [GitHub Repository](https://github.com/nitubola88/sqlalchemy-challenge.git)
